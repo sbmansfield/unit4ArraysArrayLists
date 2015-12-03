@@ -1,4 +1,3 @@
-
 public class ArrayOperations2
 {
     private int[] values;
@@ -6,7 +5,7 @@ public class ArrayOperations2
     
     public ArrayOperations2() 
     { 
-        values = new int[100]; 
+        values = new int[10]; 
         for (currentSize = 0; currentSize <50; currentSize++)
         {
             values[currentSize] = currentSize * 2;
@@ -69,11 +68,12 @@ public class ArrayOperations2
     {
         if (currentSize%2 == 0)
         {
-            
+            remove(currentSize/2);
+            remove( (currentSize/2) + 1);
         }
         else
         {
-            
+            remove( (currentSize/2) + 1);
         }
     }
     //f
@@ -84,21 +84,95 @@ public class ArrayOperations2
     //g
 //     public int return2ndLargest()
 //     {
-//         
+//         int min = findMin();
+//         int max = findMax();
+//         for (int i = 0; i < currentSize; i++)
+//         {
+//             if (values[0] > min && values[0] < max)
+//             {
+//                 min = values[0];
+//             }
+//         }
 //     }
-//     //h
-//     public boolean checkSorted()
-//     {
-//         
-//     }
-//     //i
-//     public boolean checkAdjDuplicate()
-//     {
-//         
-//     }
-//     //j
-//     public boolean containsDuplicates()
-//     {
-//         
-//     }
+    public int findMin()
+    {
+        int smallest = values[0];
+        for (int i = 1; i < currentSize; i++)
+        {
+            if (values[i] < smallest)
+            {
+                smallest = values[i];
+            }
+        }
+        return smallest;
+    }
+    public int findMax()
+    {
+        int largest = values[0];
+        for (int i = 1; i < currentSize; i++)
+        {
+            if (values[i] > largest)
+            {
+                largest = values[i];
+            }
+        }
+        return largest;
+    }
+    
+    //h
+    public boolean checkSorted()
+    {
+        int check = 0;
+        for (int i = 0; i < currentSize; i++)
+        {
+            if (values[i] < values[i+1])
+            {
+                check++;
+            }
+        }
+        
+        if (check == currentSize)
+        {
+            boolean sorted = true;
+        }
+        return sorted;
+    }
+    //i
+    public boolean checkAdjDuplicate()
+    {
+        int check = 0;
+        for (int i = 0; i < currentSize; i++)
+        {
+            if (values[i] == values[i+1])
+            {
+                check++;
+            }
+        }
+        
+        if (check > 0)
+        {
+            return true;
+        }
+    }
+    //j
+    public boolean containsDuplicates()
+    {
+        int check = 0;
+        for (int i = 0; i < currentSize; i++)
+        {
+            int tempCheck = values[i];
+            for (int j = i + 1; j < currentSize - 1; j++)
+            {
+                if (tempCheck == values[j])
+                {
+                    check++;
+                }
+            }
+        }
+        
+        if (check > 0)
+        {
+            return true;
+        }
+    }
 }

@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 /**
  * The model for radar scan and accumulator
@@ -35,13 +36,10 @@ public class Radar
     {
         // initialize the currentScan 2D array and the accumulator 2D array
         
+        currentScan = new boolean[rows][cols];
+        accumulator = new int[rows][cols];
         
-        //
-        // !!! add code here !!!
-        //
-        
-        
-        // randomly set the location of the monster (can be explicity set through the
+        // randomly set the location of the monster (can be explicitly set through the
         //  setMonsterLocation method for the unit test
         monsterLocationRow = (int)(Math.random() * rows);
         monsterLocationCol = (int)(Math.random() * cols);
@@ -63,12 +61,25 @@ public class Radar
         //    4. update the accumulator 2D array based on the state of the currentScan 2D array
         //    5. increment the numScans instance variable
         
+        //1
+        for (boolean cell : currentScan)
+        {
+            cell = false;
+        }
+        //2
+        Scanner setLoc = new Scanner(System.in);
+        System.out.println("Set the location of the monster");
         
-        //
-        // !!! add code here !!!
-        //
+        System.out.println("Row Number: ");
+        monsterLocationRow = setLoc.nextInt();
         
+        System.out.println("Column Number: ");
+        monsterLocationCol = setLoc.nextInt();
+        //3
+        injectNoise();
+        //4
         
+        //5
     }
 
     /**
@@ -91,7 +102,7 @@ public class Radar
      /**
      * Sets the probability that a given cell will generate a false detection
      * 
-     * @param   fraction    the probability that a given cell will generate a flase detection expressed
+     * @param   fraction    the probability that a given cell will generate a false detection expressed
      *                      as a fraction (must be >= 0 and < 1)
      */
     public void setNoiseFraction(double fraction)
@@ -166,12 +177,10 @@ public class Radar
         // detected as a false positive. Use the Math.random method to determine if each cell should be set
         // as a false positive.
         
-        
-        //
-        // !!! add code here !!!
-        //
-        
-        
+        for (boolean cell : currentScan)
+        {
+            noiseFraction = (double) Math.random(1);
+        }
     }
     
 }

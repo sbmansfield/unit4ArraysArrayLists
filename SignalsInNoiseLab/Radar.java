@@ -8,7 +8,6 @@ import java.util.Scanner;
  */
 public class Radar
 {
-    
     // stores whether each cell triggered detection for the current scan of the radar
     // (true represents a detected monster, which may be a false positive)
     private boolean[][] currentScan;
@@ -62,24 +61,34 @@ public class Radar
         //    5. increment the numScans instance variable
         
         //1
-        for (boolean cell : currentScan)
+        for (int i = 0; i < getNumRows() ; i++)
         {
-            cell = false;
+            for (int j = 0; j < getNumCols() ; j++)
+            {
+                currentScan[i][j] = false;
+            }
         }
+        
         //2
-        Scanner setLoc = new Scanner(System.in);
-        System.out.println("Set the location of the monster");
+        setMonsterLocation(monsterLocationRow, monsterLocationCol);
         
-        System.out.println("Row Number: ");
-        monsterLocationRow = setLoc.nextInt();
-        
-        System.out.println("Column Number: ");
-        monsterLocationCol = setLoc.nextInt();
         //3
         injectNoise();
+        
         //4
+        for (int i = 0; i < getNumRows() ; i++)
+        {
+            for (int j = 0; j < getNumCols() ; j++)
+            {
+                if (currentScan[i][j] == true)
+                {
+                    accumulator[i][j]++;
+                }
+            }
+        }
         
         //5
+        numScans++;
     }
 
     /**
@@ -177,9 +186,16 @@ public class Radar
         // detected as a false positive. Use the Math.random method to determine if each cell should be set
         // as a false positive.
         
-        for (boolean cell : currentScan)
+        for (int i = 0; i < getNumRows() ; i++)
         {
-            noiseFraction = (double) Math.random(1);
+            for (int j = 0; j < getNumCols() ; j++)
+            {
+                double fraction = Math.random();
+                if (fraction > .5)
+                {
+                    currentScan[i][j] = true;
+                }
+            }
         }
     }
     

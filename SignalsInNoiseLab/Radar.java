@@ -1,4 +1,4 @@
-import java.util.Scanner;
+
 
 /**
  * The model for radar scan and accumulator
@@ -40,9 +40,10 @@ public class Radar
         
         // randomly set the location of the monster (can be explicitly set through the
         //  setMonsterLocation method for the unit test
-        monsterLocationRow = (int)(Math.random() * rows);
-        monsterLocationCol = (int)(Math.random() * cols);
-        
+        //monsterLocationRow = (int)(Math.random() * rows);
+        //monsterLocationCol = (int)(Math.random() * cols);
+
+        // sets the values of noiseFraction and numScans
         noiseFraction = 0.05;
         numScans= 0;
     }
@@ -60,7 +61,7 @@ public class Radar
         //    4. update the accumulator 2D array based on the state of the currentScan 2D array
         //    5. increment the numScans instance variable
         
-        //1
+        // 1. set all cells in the currentScan 2D array to false
         for (int i = 0; i < getNumRows() ; i++)
         {
             for (int j = 0; j < getNumCols() ; j++)
@@ -69,13 +70,15 @@ public class Radar
             }
         }
         
-        //2
+        // 2. set the location of the monster in the currentScan 2D array (based on user input)
         setMonsterLocation(monsterLocationRow, monsterLocationCol);
         
-        //3
+        // 3. inject noise into the grid
         injectNoise();
         
-        //4
+        // 4. update the accumulator 2D array based on the state of the currentScan 2D array
+        // value of each cell in accumulator is incremented for each scan in which 
+        // that cell triggers detection (the cell returns true in currentScan)
         for (int i = 0; i < getNumRows() ; i++)
         {
             for (int j = 0; j < getNumCols() ; j++)
@@ -87,7 +90,7 @@ public class Radar
             }
         }
         
-        //5
+        // 5. increment the numScans instance variable
         numScans++;
     }
 
@@ -191,7 +194,7 @@ public class Radar
             for (int j = 0; j < getNumCols() ; j++)
             {
                 double fraction = Math.random();
-                if (fraction > .5)
+                if (fraction <= noiseFraction)
                 {
                     currentScan[i][j] = true;
                 }

@@ -1,5 +1,4 @@
 
-
 /**
  * The model for radar scan and accumulator
  * 
